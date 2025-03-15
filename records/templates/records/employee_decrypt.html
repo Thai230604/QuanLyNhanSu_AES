@@ -1,0 +1,116 @@
+{% extends "records/home.html" %}
+
+{% block title %}Thông Tin Nhân Viên Giải Mã{% endblock %}
+
+{% block content %}
+<h2 style="margin-top: 20px; margin-bottom: 20px; text-align: center;">Thông Tin Nhân Viên Giải Mã</h2>
+
+{% if messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" style="width: auto; max-width: 1200px; margin: 0 auto;">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endif %}
+
+<div style="width: 100%; max-width: 1200px; margin: 0 auto;">
+    <h3>Thông Tin Nhân Viên:</h3>
+
+    <!-- Information fields -->
+    <div class="mb-3">
+        <label for="employee_code" class="form-label"><strong>Mã Nhân Viên:</strong></label>
+        <input type="text" class="form-control" id="employee_code" value="{{ employee.employee_code }}" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="decrypted_name" class="form-label"><strong>Tên Giải Mã:</strong></label>
+        <input type="text" class="form-control" id="decrypted_name" value="{{ decrypted_name }}" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="decrypted_birth_date" class="form-label"><strong>Ngày Sinh Giải Mã:</strong></label>
+        <input type="text" class="form-control" id="decrypted_birth_date" value="{{ decrypted_birth_date }}" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="decrypted_phone_number" class="form-label"><strong>Số Điện Thoại Giải Mã:</strong></label>
+        <input type="text" class="form-control" id="decrypted_phone_number" value="{{ decrypted_phone_number }}" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="decrypted_address" class="form-label"><strong>Địa Chỉ Giải Mã:</strong></label>
+        <input type="text" class="form-control" id="decrypted_address" value="{{ decrypted_address }}" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="decrypted_position" class="form-label"><strong>Vị Trí Giải Mã:</strong></label>
+        <input type="text" class="form-control" id="decrypted_position" value="{{ decrypted_position }}" readonly>
+    </div>
+
+    <!-- Edit and Delete buttons -->
+    <div class="d-flex justify-content-end mt-3">
+        <!-- Edit Button -->
+        <button type="button" class="btn btn-outline-info" id="edit_button" onclick="enableEditing()" style="margin-right: 10px;">Sửa</button>
+
+        <!-- Cancel Button -->
+        <button type="button" class="btn btn-outline-warning" id="cancel_button" onclick="cancelEditing()" style="display: none; margin-right: 10px;">Hủy</button>
+
+        <!-- Delete Form -->
+        {% comment %} <form action="{% url 'delete_employee' employee.id %}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa nhân viên này?');">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger">Xóa</button>
+        </form> {% endcomment %}
+    </div>
+
+    <!-- Form for entering decryption key -->
+    <div id="edit_form" style="display: none;">
+        <h4 style="margin-top: 20px;">Cập Nhật Thông Tin Nhân Viên</h4>
+        <form action="{% url 'update_employee' employee.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="new_name" class="form-label"><strong>Tên Mới:</strong></label>
+                <input type="text" class="form-control" name="name" id="new_name" value="{{ decrypted_name }}">
+            </div>
+            <div class="mb-3">
+                <label for="new_birth_date" class="form-label"><strong>Ngày Sinh Mới:</strong></label>
+                <input type="text" class="form-control" name="birth_date" id="new_birth_date" value="{{ decrypted_birth_date }}">
+            </div>
+            <div class="mb-3">
+                <label for="new_phone_number" class="form-label"><strong>Số Điện Thoại Mới:</strong></label>
+                <input type="text" class="form-control" name="phone_number" id="new_phone_number" value="{{ decrypted_phone_number }}">
+            </div>
+            <div class="mb-3">
+                <label for="new_address" class="form-label"><strong>Địa Chỉ Mới:</strong></label>
+                <input type="text" class="form-control" name="address" id="new_address" value="{{ decrypted_address }}">
+            </div>
+            <div class="mb-3">
+                <label for="new_position" class="form-label"><strong>Vị Trí Mới:</strong></label>
+                <input type="text" class="form-control" name="position" id="new_position" value="{{ decrypted_position }}">
+            </div>
+            <div class="mb-3">
+                <label for="decryption_key" class="form-label"><strong>Nhập Khóa Giải Mã:</strong></label>
+                <input type="file" class="form-control" name="key_file" id="decryption_key" required>
+            </div>
+            <button type="submit" class="btn btn-outline-success">Cập Nhật</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function enableEditing() {
+        document.getElementById('edit_button').style.display = 'none';
+        document.getElementById('cancel_button').style.display = 'inline-block';
+        document.getElementById('edit_form').style.display = 'block';
+
+        // Make fields editable
+        document.getElementById('new_name').disabled = false;
+        document.getElementById('new_birth_date').disabled = false;
+        document.getElementById('new_phone_number').disabled = false;
+        document.getElementById('new_address').disabled = false;
+        document.getElementById('new_position').disabled = false;
+    }
+
+    function cancelEditing() {
+        document.getElementById('edit_button').style.display = 'inline-block';
+        document.getElementById('cancel_button').style.display = 'none';
+        document.getElementById('edit_form').style.display = 'none';
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+/* Cập nhật thông báo chung */
+.alert {
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 20px;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Hiệu ứng bóng đổ */
+    max-width: 100%;  /* Đảm bảo thông báo không vượt quá màn hình */
+    word-wrap: break-word;  /* Tự động xuống dòng nếu văn bản quá dài */
+    transition: transform 0.3s ease-in-out;  /* Thêm hiệu ứng khi đóng */
+}
+
+/* Màu nền thông báo đậm hơn */
+.alert-success {
+    background-color: #4CAF50;  /* Màu xanh đậm hơn */
+    color: #ffffff;
+    border: 1px solid #388E3C;
+}
+
+.alert-error {
+    background-color: #F44336;  /* Màu đỏ đậm hơn */
+    color: #ffffff;
+    border: 1px solid #D32F2F;
+}
+
+.alert-warning {
+    background-color: #FF9800;  /* Màu cam đậm hơn */
+    color: #ffffff;
+    border: 1px solid #F57C00;
+}
+
+.alert-info {
+    background-color: #2196F3;  /* Màu xanh dương đậm hơn */
+    color: #ffffff;
+    border: 1px solid #1976D2;
+}
+
+/* Nút đóng của thông báo */
+.alert .close {
+    background: none;
+    border: none;
+    font-size: 24px;  /* Tăng kích thước của dấu X */
+    color: inherit;
+    cursor: pointer;
+    margin-left: 15px;
+    transition: color 0.3s ease;
+}
+
+/* Hiệu ứng hover khi di chuột vào nút đóng */
+.alert .close:hover {
+    color: #000;
+}
+
+/* Hiệu ứng khi ẩn thông báo */
+.alert.closed {
+    transform: scale(0.8); /* Thu nhỏ thông báo khi đóng */
+    opacity: 0;  /* Làm mờ thông báo khi đóng */
+}
+
+/* Tùy chỉnh cho các màn hình nhỏ */
+@media (max-width: 768px) {
+    .alert {
+        font-size: 14px;  /* Giảm kích thước chữ trên màn hình nhỏ */
+        padding: 10px;
+    }
+
+    .alert .close {
+        font-size: 16px;  /* Giảm kích thước nút đóng trên màn hình nhỏ */
+    }
+}
+
+
+

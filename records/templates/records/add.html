@@ -1,0 +1,68 @@
+{% extends "records/home.html" %}
+
+{% block title %}Thêm nhân viên{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Thêm Nhân Viên</h2>
+    {% if messages %}
+    <div class="alert alert-dismissible alert-success" role="alert" style="width: 100% ; max-width: 1200px; margin: 0 auto;">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endif %} 
+    <form method="POST">
+        {% csrf_token %}
+        
+        <!-- Mã nhân viên -->
+        <div class="mb-3">
+            <label for="employeeCode" class="form-label">Mã Nhân Viên</label>
+            <input type="text" class="form-control" id="employeeCode" name="employee_code" required>
+        </div>
+
+        <!-- Tên nhân viên -->
+        <div class="mb-3">
+            <label for="name" class="form-label">Tên Nhân Viên</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+
+        <!-- Ngày sinh -->
+        <div class="mb-3">
+            <label for="birthDate" class="form-label">Ngày Sinh</label>
+            <input type="date" class="form-control" id="birthDate" name="birth_date" required>
+        </div>
+
+        <!-- Địa chỉ -->
+        <div class="mb-3">
+            <label for="address" class="form-label">Địa Chỉ</label>
+            <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+        </div>
+
+        <!-- Số điện thoại -->
+        <div class="mb-3">
+            <label for="phoneNumber" class="form-label">Số Điện Thoại</label>
+            <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+        </div>
+
+        <!-- Vị trí -->
+        <div class="mb-3">
+            <label for="position" class="form-label">Vị Trí</label>
+            <input type="text" class="form-control" id="position" name="position" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="department" class="form-label">Phòng Ban</label>
+            <select class="form-select" id="department" name="department">
+                <option value="">Chọn phòng ban</option>
+                {% for department in departments %}
+                    <option value="{{ department.id }}">{{ department.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Thêm Nhân Viên</button>
+    </form>
+</div>
+{% endblock %}

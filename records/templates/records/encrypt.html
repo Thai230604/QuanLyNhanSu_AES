@@ -1,0 +1,39 @@
+{% extends "records/home.html" %}
+
+{% block title %}Trang Mã Hóa{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Mã hóa</h2>
+    {% if messages %}
+    <div class="alert-container">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                <span>{{ message }}</span>
+                <button class="close" onclick="this.parentElement.style.display='none';">&times;</button>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+    <form method="POST" enctype="multipart/form-data" id="encryptionForm">
+        {% csrf_token %}
+        <!-- Nhập khóa -->
+        <div class="mb-3">
+            <label for="encryptionKey" class="form-label">Nhập khóa (16 ký tự)</label>
+            <input type="text" class="form-control" id="encryptionKey" name="encryption_key" maxlength="16" placeholder="Nhập khóa mã hóa" required>
+            <small class="form-text text-muted">Khóa phải có đúng 16 ký tự.</small>
+        </div>
+        
+        <!-- Chọn file -->
+        <div class="mb-3">
+            <label for="fileInput" class="form-label">Chọn tệp để mã hóa</label>
+            <input type="file" class="form-control" id="fileInput" name="file" required>
+        </div>
+        
+        <!-- Nút mã hóa -->
+        <button type="submit" class="btn btn-primary">Mã hóa</button>
+    </form>
+</div>
+
+
+{% endblock %}

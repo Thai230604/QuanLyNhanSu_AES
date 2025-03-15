@@ -1,0 +1,65 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Django Project</title>
+    <link rel="stylesheet" href="{% static 'records/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'records/new.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Nhom10</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'home' %}">Trang chủ
+                  <span class="visually-hidden">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'encrypt' %}">Mã hóa</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'decrypt' %}">Giải mã</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'add' %}">Thêm nhân viên</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'department_list' %}">Danh sach phòng ban</a>
+              </li>
+              {% comment %} <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Separated link</a>
+                </div>
+              </li> {% endcomment %}
+            </ul>
+            {% comment %} <form class="d-flex">
+              <input class="form-control me-sm-2" type="search" placeholder="Search">
+              <button class="btn btn-secondary my-2 my-sm-0" type="submit" fdprocessedid="mtej0q">Search</button>
+            </form> {% endcomment %}
+          </div>
+        </div>
+      </nav>
+      <main>
+        <div class="container mt-5">
+          {% block content %}{% endblock %}
+      </div>
+      
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    {% comment %} <script src=" {% static 'records/message.js'%}"></script> {% endcomment %}
+</body>
+</html>

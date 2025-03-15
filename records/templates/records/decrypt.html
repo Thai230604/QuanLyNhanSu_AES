@@ -1,0 +1,46 @@
+{% extends "records/home.html" %}
+
+{% block title %}Trang Giải Mã{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Giải Mã</h2>
+    {% if messages %}
+    <div class="alert-container">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                <span>{{ message }}</span>
+                <button class="close" onclick="this.parentElement.style.display='none';">&times;</button>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Nhập khóa mã hóa -->
+        <div class="mb-3">
+            <label for="decryptionKey" class="form-label">Nhập khóa (16 ký tự)</label>
+            <input type="text" class="form-control" id="decryptionKey" name="decryption_key" maxlength="16" placeholder="Nhập khóa giải mã" required> 
+            <small class="form-text text-muted">Khóa phải có đúng 16 ký tự.</small>
+        </div>
+
+        <!-- Tải lên tệp mã hóa -->
+        <div class="mb-3">
+            <label for="fileInput" class="form-label">Chọn tệp mã hóa</label>
+            <input type="file" class="form-control" id="fileInput" name="file" required>
+        </div>
+
+        <!-- Nhập tên file mới -->
+        <div class="mb-3">
+            <label for="newFileName" class="form-label">Nhập tên file mới</label>
+            <input type="text" class="form-control" id="newFileName" name="new_file_name" placeholder="Tên file mới" required>
+        </div>
+
+        <!-- Nút giải mã -->
+        <button type="submit" class="btn btn-primary">Giải mã</button>
+    </form>
+
+    
+</div>
+{% endblock %}

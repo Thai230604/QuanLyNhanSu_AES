@@ -1,0 +1,58 @@
+{% extends "records/home.html" %}
+
+{% block title %}Trang Mã Hóa{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- Mã hóa tài liệu -->
+        <div class="col-md-6 mb-3">
+            <div class="card text-white bg-primary">
+                <div class="card-header">Quản lý tài liệu</div>
+                <div class="card-body">
+                    <h4 class="card-title">Mã hóa tài liệu</h4>
+                    <p class="card-text">Bảo vệ thông tin tài liệu của bạn bằng cách mã hóa nội dung một cách an toàn và bảo mật.</p>
+                    <a href="{% url 'encrypt' %}" class="btn btn-light">Bắt đầu mã hóa</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Giải mã tài liệu -->
+        <div class="col-md-6 mb-3">
+            <div class="card text-white bg-secondary">
+                <div class="card-header">Quản lý tài liệu</div>
+                <div class="card-body">
+                    <h4 class="card-title">Giải mã tài liệu</h4>
+                    <p class="card-text">Truy cập nội dung đã mã hóa bằng cách giải mã tài liệu bằng cách nhập khóa.</p>
+                    <a href="{% url 'decrypt' %}" class="btn btn-light">Bắt đầu giải mã</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thêm hồ sơ nhân viên -->
+        <div class="col-md-6 mb-3">
+            <div class="card text-white bg-success">
+                <div class="card-header">Quản lý nhân sự</div>
+                <div class="card-body">
+                    <h4 class="card-title">Thêm hồ sơ nhân viên</h4>
+                    <p class="card-text">Thêm thông tin chi tiết của nhân viên mới vào hệ thống một cách dễ dàng và nhanh chóng.</p>
+                    <a href="{% url 'add' %}" class="btn btn-light">Thêm hồ sơ</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Danh sách phòng ban -->
+        <div class="col-md-6 mb-3">
+            <div class="card text-white bg-danger">
+                <div class="card-header">Quản lý nhân sự</div>
+                <div class="card-body">
+                    <h4 class="card-title">Danh sách phòng ban</h4>
+                    <p class="card-text">Xem và quản lý các thông tin chi tiết của nhân viên trong từng phòng ban.</p>
+                    <a href="{% url 'department_list' %}" class="btn btn-light">Xem danh sách</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

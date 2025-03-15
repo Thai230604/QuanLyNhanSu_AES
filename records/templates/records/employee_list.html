@@ -1,0 +1,77 @@
+{% extends "records/home.html" %}
+
+{% block title %}Danh Sách Nhân Viên{% endblock %}
+
+{% block content %}
+<h2 style="margin-top: 20px; margin-bottom: 20px; text-align: center;">
+    Danh sách nhân viên - {{ department.name }}
+</h2>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-dismissible 
+            {% if message.tags == 'success' %}
+                alert-success
+            {% elif message.tags == 'error' %}
+                alert-danger
+            {% else %}
+                alert-info
+            {% endif %}
+            " role="alert" style="width: auto; max-width: 1200px; margin: 0 auto;">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% if employees %}
+<div class="accordion" id="accordionExample" style="width: 100%; max-width: 1200px; margin: 0 auto; overflow-x: hidden;">
+    {% for employee in employees %}
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+            <button class="accordion-button collapsed btn btn-outline-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+                {{ employee.employee_code }} - {{ employee.name }}
+            </button>
+        </h2>
+        <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <p class="text-info"><strong>Tên:</strong> {{ employee.name }}</p>
+                <p class="text-info"><strong>Ngày Sinh:</strong> {{ employee.birth_date }}</p>
+                <p class="text-info"><strong>Số Điện Thoại:</strong> {{ employee.phone_number|default:"N/A" }}</p>
+                <p class="text-info"><strong>Địa Chỉ:</strong> {{ employee.address|default:"N/A" }}</p>
+                <p class="text-info"><strong>Vị Trí:</strong> {{ employee.position|default:"N/A" }}</p>
+
+                <!-- Decrypt Button -->
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-outline-warning" type="button" data-bs-toggle="collapse" data-bs-target="#decrypt{{ forloop.counter }}" aria-expanded="false" aria-controls="decrypt{{ forloop.counter }}">
+                        Giải Mã
+                    </button>
+                    <form action="{% url 'delete_employee' employee.id %}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa nhân viên này?');">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger">Xóa</button>
+                    </form>
+                </div>
+                
+                
+                <!-- Form for Key and Encrypted Data -->
+                <div id="decrypt{{ forloop.counter }}" class="collapse mt-3">
+                    <form action="{% url 'employee_decrypt' department.id%}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control" name="key_file" required>
+                        </div>
+
+                        <input type="hidden" name="employee_id" value="{{ employee.id }}">
+                        
+                        <button class="btn btn-outline-light" type="submit">Xác nhận</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="text-center mt-5  text-warning">Không có nhân viên nào trong phòng ban này.</p>
+{% endif %}
+{% endblock %}
